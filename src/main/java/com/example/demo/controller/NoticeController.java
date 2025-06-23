@@ -49,10 +49,13 @@ public class NoticeController {
         return ResponseEntity.ok(noticeService.createNotice(dto, user));  // お知らせを作成し、結果を返す（200 OK）
     }
     
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteNotices(@PathVariable Long id){       // 指定IDのお知らせを削除
-        noticeRepository.deleteById(id);                                 // 該当のお知らせをDBから削除
-        return ResponseEntity.ok("削除しました。");                        // 成功メッセージを返す（200 OK）
+    	if (!noticeRepository.existsById(id)) {                    // 指定されたIDのお知らせが存在しない場合
+    	    return ResponseEntity.notFound().build();              // 404 Not Found を返す
+    	}
+    	noticeRepository.deleteById(id);                           // 存在する場合は削除を実行
+    	return ResponseEntity.ok("削除しました。");                 // 削除完了メッセージとともに200 OK を返す
     }
 }
 
