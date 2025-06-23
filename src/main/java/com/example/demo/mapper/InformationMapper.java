@@ -15,7 +15,7 @@ public class InformationMapper {
         dto.setJoinedAt(user.getJoinedAt());
         dto.setDepartment(user.getDepartment());
         dto.setHobby(user.getHobby());
-        dto.setIntro(user.getIntro());
+        dto.setBio(user.getBio());
         return dto;
     }
 
@@ -24,6 +24,6 @@ public class InformationMapper {
         user.setJoinedAt(dto.getJoinedAt());
         user.setDepartment(dto.getDepartment());
         user.setHobby(dto.getHobby());
-        user.setIntro(dto.getIntro());
+        user.setBio(dto.getBio());
     }
 }

@@ -10,5 +10,5 @@ public class InformationResponseDto {
 	private LocalDateTime joinedAt;
 	private String department;
 	private String hobby;
-	private String intro;
+	private String bio;
 }
