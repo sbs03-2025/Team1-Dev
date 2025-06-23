@@ -17,8 +17,8 @@ public class UserMapper {
                 .joinedAt(dto.getJoinedAt())
                 .department(dto.getDepartment())
                 .hobby(dto.getHobby())
-                .intro(dto.getIntro())
-//                .bio(dto.getBio())
+                .bio(dto.getBio())
+                
 //                .imageUrl(dto.getImageUrl())
 //                .status(dto.getStatus())
                 .build();
@@ -33,9 +33,8 @@ public class UserMapper {
         dto.setJoinedAt(user.getJoinedAt());
         dto.setDepartment(user.getDepartment());
         dto.setHobby(user.getHobby());
-        dto.setIntro(user.getIntro());
+        dto.setBio(user.getBio());
 
-//        dto.setBio(user.getBio());
 //        dto.setImageUrl(user.getImageUrl());
 //        dto.setStatus(user.getStatus());
         return dto;
@@ -46,9 +45,8 @@ public class UserMapper {
         user.setJoinedAt(dto.getJoinedAt());
         user.setDepartment(dto.getDepartment());
         user.setHobby(dto.getHobby());
-        user.setIntro(user.getIntro());
+        user.setBio(user.getBio());
         
-//        user.setBio(dto.getBio());
 //        user.setImageUrl(dto.getImageUrl());
 //        user.setStatus(dto.getStatus());
         // email, role, password は原則更新しない

@@ -26,10 +26,10 @@ public class UserDto {
     
     private String hobby;
     
-    private String intro;
+    private String bio;
     
-    //    private String bio;
-	//    
+    // --- プロフィール拡張項目（将来使用予定） ---
+    
 	//    private String imageUrl;
 	//    
 	//    private String status;
