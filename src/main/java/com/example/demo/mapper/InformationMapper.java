@@ -16,7 +16,13 @@ public class InformationMapper {
         dto.setDepartment(user.getDepartment());
         dto.setHobby(user.getHobby());
         dto.setBio(user.getBio());
+        
+//      dto.setImageUrl(user.getImageUrl());
+//      dto.setStatus(user.getStatus());
+        
         return dto;
+        
+        
     }
 
     public void updateUser(User user, InformationRequestDto dto) {
@@ -25,5 +31,9 @@ public class InformationMapper {
         user.setDepartment(dto.getDepartment());
         user.setHobby(dto.getHobby());
         user.setBio(dto.getBio());
+        
+//      user.setImageUrl(dto.getImageUrl());
+//      user.setStatus(dto.getStatus());
+
     }
 }
