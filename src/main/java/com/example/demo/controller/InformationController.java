@@ -27,22 +27,23 @@ public class InformationController {
 
     @GetMapping("/me")
     public ResponseEntity<?> getInfo(Authentication authentication) {
-        String email = authentication.getName();
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));
-        return ResponseEntity.ok(informationService.getInfo(user));
+        String email = authentication.getName();                              // 認証情報からユーザーのメールアドレスを取得
+        User user = userRepository.findByEmail(email)                         
+                .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));  // ユーザーが見つからなければ例外を投げる
+        return ResponseEntity.ok(informationService.getInfo(user));           // ユーザーの情報を取得して200 OKで返す
     }
 
     @PutMapping
     public ResponseEntity<?> updateInfo(
-            Authentication authentication,
-            @RequestBody InformationRequestDto dto) {
+            Authentication authentication,                   // ログインユーザーの認証情報
+            @RequestBody InformationRequestDto dto) {         // 更新内容を含むリクエストDTO
 
-        String email = authentication.getName();
+        String email = authentication.getName();             // 認証情報からメールアドレスを取得
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));
+                .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));  // ユーザーが存在しなければ例外を投げる
 
-        return ResponseEntity.ok(informationService.updateInfo(user, dto));
+        return ResponseEntity.ok(informationService.updateInfo(user, dto));  // ユーザー情報を更新し、結果を返す
     }
+
     
 }

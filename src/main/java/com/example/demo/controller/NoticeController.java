@@ -25,33 +25,34 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/notices")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173")  // フロントエンド（ポート5173）とのクロスオリジン通信を許可
 public class NoticeController {
 
-    private final NoticeService noticeService;
-    private final UserRepository userRepository;
-    private final NoticeRepository noticeRepository;
+    private final NoticeService noticeService;                // お知らせ関連のビジネスロジックを処理
+    private final UserRepository userRepository;              // ユーザー情報へのアクセス用
+    private final NoticeRepository noticeRepository;          // お知らせ情報へのアクセス用
 
     @GetMapping
     public ResponseEntity<List<NoticeResponseDto>> getAll() {
-        return ResponseEntity.ok(noticeService.getAllNotices());
+        return ResponseEntity.ok(noticeService.getAllNotices());  // 全お知らせを取得して返す（200 OK）
     }
 
     @PostMapping
     public ResponseEntity<NoticeResponseDto> create(
-            @RequestBody NoticeRequestDto dto,
+            @RequestBody NoticeRequestDto dto,               // お知らせ作成リクエストDTO
             Authentication authentication) {
 
-        String email = authentication.getName();
+        String email = authentication.getName();             // 認証されたユーザーのメールアドレスを取得
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));
+                .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));  // ユーザーが存在しなければ例外
 
-        return ResponseEntity.ok(noticeService.createNotice(dto, user));
+        return ResponseEntity.ok(noticeService.createNotice(dto, user));  // お知らせを作成し、結果を返す（200 OK）
     }
     
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteNotices(@PathVariable Long id){
-    	noticeRepository.deleteById(id);
-    	return ResponseEntity.ok("削除しました。");
+    public ResponseEntity<?> deleteNotices(@PathVariable Long id){       // 指定IDのお知らせを削除
+        noticeRepository.deleteById(id);                                 // 該当のお知らせをDBから削除
+        return ResponseEntity.ok("削除しました。");                        // 成功メッセージを返す（200 OK）
     }
 }
+
