@@ -14,4 +14,9 @@ public class TodoResponseDto {
     private boolean completed;
     private LocalDateTime dueDate;
     private LocalDateTime createdAt;
+
+    // // カレンダー表示拡張用
+    // private LocalDateTime startDateTime;
+    // private LocalDateTime endDateTime;
+    // private boolean allDay;
 }

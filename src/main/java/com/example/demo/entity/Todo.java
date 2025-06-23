@@ -40,4 +40,10 @@ public class Todo {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    // --- カレンダーUI対応の拡張フィールド ---
+    // private LocalDateTime startDateTime;  // イベント開始日時
+    // private LocalDateTime endDateTime;    // イベント終了日時
+    // private boolean allDay;               // 終日イベントかどうか
 }
+

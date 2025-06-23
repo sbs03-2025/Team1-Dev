@@ -28,6 +28,12 @@ public class TodoMapper {
 	            .completed(false)                             // 初期状態は未完了に設定
 	            .user(user)                                   // 所有者のユーザーを設定
 	            .build();                                     // Todoエンティティを構築
+	    
+	        // .startDateTime(dto.getStartDateTime())
+	        // .endDateTime(dto.getEndDateTime())
+	        // .allDay(dto.isAllDay())
+
+	    
 	}
 
 
@@ -46,6 +52,9 @@ public class TodoMapper {
 	            .dueDate(todo.getDueDate())               // 期限を設定
 	            .createdAt(todo.getCreatedAt())           // 作成日時を設定
 	            .build();                                 // DTOを構築
+	    
+        // .startDateTime(todo.getStartDateTime())
+        // .endDateTime(todo.getEndDateTime())
+        // .allDay(todo.isAllDay())
 	}
-
 }
