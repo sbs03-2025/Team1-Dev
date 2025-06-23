@@ -22,6 +22,7 @@ public class NoticeMapper {
 
     public NoticeResponseDto toDto(Notice notice) {
         NoticeResponseDto dto = new NoticeResponseDto();
+        dto.setId(notice.getId());
         dto.setTitle(notice.getTitle());
         dto.setBody(notice.getBody()); // typo修正要注意
         dto.setCreatedAt(notice.getCreatedAt());

@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class NoticeResponseDto {
+	private Long id;
 	private String title;
 	private String body;
 	private LocalDateTime createdAt;

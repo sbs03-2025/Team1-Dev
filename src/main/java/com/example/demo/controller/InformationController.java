@@ -44,4 +44,5 @@ public class InformationController {
 
         return ResponseEntity.ok(informationService.updateInfo(user, dto));
     }
+    
 }
