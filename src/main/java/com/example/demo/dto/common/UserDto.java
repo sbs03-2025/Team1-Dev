@@ -1,5 +1,7 @@
 package com.example.demo.dto.common;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 
@@ -18,11 +20,17 @@ public class UserDto {
 
     private String role;
     
-    private String department;
+    private LocalDateTime joinedAt;
     
-    private String bio;
+    private String department;// 所属部署（例：開発部、総務部など）
     
-    private String imageUrl;
+    private String hobby;
     
-    private String status;
+    private String intro;
+    
+    //    private String bio;
+	//    
+	//    private String imageUrl;
+	//    
+	//    private String status;
 }

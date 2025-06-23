@@ -14,7 +14,10 @@ public class UserMapper {
                 .email(dto.getEmail())
                 .passwordHash(dto.getPassword())
                 .role(dto.getRole())
-//                .department(dto.getDepartment())
+                .joinedAt(dto.getJoinedAt())
+                .department(dto.getDepartment())
+                .hobby(dto.getHobby())
+                .intro(dto.getIntro())
 //                .bio(dto.getBio())
 //                .imageUrl(dto.getImageUrl())
 //                .status(dto.getStatus())
@@ -27,7 +30,11 @@ public class UserMapper {
         dto.setEmail(user.getEmail());
         dto.setPassword(null); // パスワードは返さないように制御
         dto.setRole(user.getRole());
-//        dto.setDepartment(user.getDepartment());
+        dto.setJoinedAt(user.getJoinedAt());
+        dto.setDepartment(user.getDepartment());
+        dto.setHobby(user.getHobby());
+        dto.setIntro(user.getIntro());
+
 //        dto.setBio(user.getBio());
 //        dto.setImageUrl(user.getImageUrl());
 //        dto.setStatus(user.getStatus());
@@ -36,7 +43,11 @@ public class UserMapper {
 
     public void updateEntity(User user, UserDto dto) {
         user.setName(dto.getName());
-//        user.setDepartment(dto.getDepartment());
+        user.setJoinedAt(dto.getJoinedAt());
+        user.setDepartment(dto.getDepartment());
+        user.setHobby(dto.getHobby());
+        user.setIntro(user.getIntro());
+        
 //        user.setBio(dto.getBio());
 //        user.setImageUrl(dto.getImageUrl());
 //        user.setStatus(dto.getStatus());

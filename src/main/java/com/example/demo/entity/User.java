@@ -42,8 +42,12 @@ public class User {
 //    private Role role;
     
     private LocalDateTime joinedAt;
-    private String department;
+    private String department;// 所属部署（例：開発部、総務部など）
     private String hobby;
     private String intro;
+ // --- プロフィール拡張項目（将来使用予定） ---
+    // private String bio;         // 自己紹介文
+    // private String imageUrl;    // プロフィール画像のURLまたはパス
+    // private String status;      // 現在のステータス（在席中、外出中など）
 
 }
