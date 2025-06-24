@@ -1,11 +1,14 @@
 package com.example.demo.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.common.UserDto;
+import com.example.demo.entity.User;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.repository.UserRepository;
 
@@ -23,6 +26,18 @@ public class UserService {
 		return userRepository.findAll().stream()
 				.map(userMapper::toDto)
 				.toList();
+	}
+	
+	// idとnameだけを取得
+	public Map<Long, String> getIdAndName(){
+		Map<Long, String> responseData = new HashMap<>();
+		List<User> users = userRepository.findAll();
+		
+		for(User user : users) {
+			responseData.put(user.getId(),user.getName());
+		}
+		
+		return responseData;
 	}
 
 	// idからユーザー検索

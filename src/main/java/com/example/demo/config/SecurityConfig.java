@@ -38,10 +38,14 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/api/login/**").permitAll() //もしもログイン後のURLであれば、.requestMatchers().authenticated() 
-                .requestMatchers(  "/users/**" ) .authenticated()       // ユーザー系（/me, /{id}, /users など）
-                .requestMatchers( "/schedules/**") .authenticated() 	// スケジュール系
-                .requestMatchers( "/Info/**") .authenticated()       // お知らせ一覧・登録・削除など
-                .requestMatchers( "/attendance/**" ) .authenticated()   // 勤怠打刻API（出勤・退勤）（未実装）
+//                .requestMatchers(  "/users/**" ) .authenticated()       // ユーザー系（/me, /{id}, /users など）
+                .requestMatchers(  "/users/**" ) .permitAll()       // ユーザー系（/me, /{id}, /users など）
+//                .requestMatchers( "/schedules/**") .authenticated() 	// スケジュール系
+                .requestMatchers( "/schedules/**") .permitAll() 	// スケジュール系
+//                .requestMatchers( "/Info/**") .authenticated()       // お知らせ一覧・登録・削除など
+                .requestMatchers( "/Info/**") .permitAll()       // お知らせ一覧・登録・削除など
+//                .requestMatchers( "/attendance/**" ) .authenticated()   // 勤怠打刻API（出勤・退勤）（未実装）
+                .requestMatchers( "/attendance/**" ) .permitAll()   // 勤怠打刻API（出勤・退勤）（未実装）
 //                .requestMatchers( "/notices/**") .authenticated()       // お知らせ一覧・登録・削除など
                 .requestMatchers( "/notices/**").permitAll()
                 .anyRequest()

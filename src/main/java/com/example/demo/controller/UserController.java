@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,6 +33,11 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());       // すべてのユーザーDTOを取得して200 OKで返す
+    }
+    
+    @GetMapping("/abstract")
+    public ResponseEntity<Map<Long,String>> getIdAndName() {
+        return ResponseEntity.ok(userService.getIdAndName());       // すべてのユーザーDTOを取得して200 OKで返す
     }
 
     // ユーザー詳細取得（ID指定）
