@@ -37,6 +37,18 @@ public class InitialUser {
 				return departmentRepository.save(dep);
 			});
 			
+			Department newDepSales = departmentRepository.findByName("営業部").orElseGet(() -> {
+				Department dep = new Department();
+				dep.setName("営業部");
+				return departmentRepository.save(dep);
+			});
+			
+			Department newDepIt = departmentRepository.findByName("IT部").orElseGet(() -> {
+				Department dep = new Department();
+				dep.setName("IT部");
+				return departmentRepository.save(dep);
+			});
+			
 			User testUser1 = userRepository.findByName("InitUser").orElseGet(() -> {
 				User user = new User();
 				user.setName("InitUser");
@@ -64,18 +76,77 @@ public class InitialUser {
 				return userRepository.save(user);
 			});
 			
-			List<User> userList = new ArrayList<>();
-			userList.add(testUser1);
-			userList.add(testUser2);
+			User testUser3 = userRepository.findByName("taro").orElseGet(() -> {
+				User user = new User();
+				user.setName("taro");
+				user.setEmail("taro@mail.com");
+				user.setPasswordHash(encoder.encode("taro"));
+				user.setRole("ROLE_USER");
+				user.setMyDepartment(Collections.singletonList(newDepSales));
+				user.setHobby("ゲーム");
+				user.setBio("こんにちは");
+				user.setJoinedAt(LocalDateTime.of(2023,4,1,0,0));
+				System.out.println("taroを登録しました。");
+				return userRepository.save(user);
+			});
+			
+			User testUser4 = userRepository.findByName("jiro").orElseGet(() -> {
+				User user = new User();
+				user.setName("jiro");
+				user.setEmail("jiro@mail.com");
+				user.setPasswordHash(encoder.encode("jiro"));
+				user.setRole("ROLE_USER");
+				user.setMyDepartment(Collections.singletonList(newDepIt));
+				user.setHobby("散歩");
+				user.setBio("Hora!");
+				user.setJoinedAt(LocalDateTime.of(2023,4,1,0,0));
+				System.out.println("jiroを登録しました。");
+				return userRepository.save(user);
+			});
+			
+			List<User> userList12 = new ArrayList<>();
+			userList12.add(testUser1);
+			userList12.add(testUser2);
+			
+			List<User> userList3 = new ArrayList<>();
+			userList3.add(testUser3);
+			
+			List<User> userList24 = new ArrayList<>();
+			userList12.add(testUser2);
+			userList12.add(testUser4);
 			
 			if(scheduleRepository.findByTitle("test").isEmpty()) {
 				Schedule schedule = new Schedule();
-				schedule.setTitle("test");
+				schedule.setTitle("test1");
 				schedule.setDescription("description");
 				schedule.setStartDateTime(LocalDateTime.of(2025,4,1,0,0));
 				schedule.setEndDateTime(LocalDateTime.of(2025,4,1,0,0));
-				schedule.setParticipants(userList);
+				schedule.setParticipants(userList12);
 				schedule.setCreatedUser(testUser1);
+				
+				scheduleRepository.save(schedule);
+			}
+			
+			if(scheduleRepository.findByTitle("test").isEmpty()) {
+				Schedule schedule = new Schedule();
+				schedule.setTitle("test2");
+				schedule.setDescription("description");
+				schedule.setStartDateTime(LocalDateTime.of(2025,5,1,0,0));
+				schedule.setEndDateTime(LocalDateTime.of(2025,5,1,0,0));
+				schedule.setParticipants(userList3);
+				schedule.setCreatedUser(testUser3);
+				
+				scheduleRepository.save(schedule);
+			}
+			
+			if(scheduleRepository.findByTitle("test").isEmpty()) {
+				Schedule schedule = new Schedule();
+				schedule.setTitle("test3");
+				schedule.setDescription("description");
+				schedule.setStartDateTime(LocalDateTime.of(2025,5,1,0,0));
+				schedule.setEndDateTime(LocalDateTime.of(2025,5,1,0,0));
+				schedule.setParticipants(userList24);
+				schedule.setCreatedUser(testUser4);
 				
 				scheduleRepository.save(schedule);
 			}
