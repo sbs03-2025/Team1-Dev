@@ -41,12 +41,13 @@ public class User {
 //    @ManyToOne
 //    private Role role;
     
-    private LocalDateTime joinedAt;
-    private String department;// 所属部署（例：開発部、総務部など）
-    private String hobby; //入社日
-    private String bio; //自己紹介
+    private LocalDateTime joinedAt;	// 入社日
+    private String department;		// 所属部署（例：開発部、総務部など）
+    private String hobby;	 		// 趣味
+    private String bio; 			// 自己紹介
+    
  // --- プロフィール拡張項目（将来使用予定） ---
-    // private String imageUrl;    // プロフィール画像のURLまたはパス
-    // private String status;      // 現在のステータス（在席中、外出中など）
+    // private String imageUrl;   	// プロフィール画像のURLまたはパス
+    // private String status;   	// 現在のステータス（在席中、外出中など）
 
 }
