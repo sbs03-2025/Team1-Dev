@@ -46,7 +46,7 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "department_id")
     )
     @Builder.Default
-    private List<Department> roles = new ArrayList<>();
+    private List<Department> department = new ArrayList<>();
     
     private LocalDateTime joinedAt;	// 入社日
 //    private String department;		// 所属部署（例：開発部、総務部など）

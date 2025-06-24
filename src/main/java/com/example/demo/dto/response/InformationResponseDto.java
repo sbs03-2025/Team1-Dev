@@ -1,6 +1,9 @@
 package com.example.demo.dto.response;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.example.demo.entity.Department;
 
 import lombok.Data;
 
@@ -8,7 +11,7 @@ import lombok.Data;
 public class InformationResponseDto {
 	private String name;
 	private LocalDateTime joinedAt;
-	private String department;
+	private List<Department> department;
 	private String hobby;
 	private String bio;
 	

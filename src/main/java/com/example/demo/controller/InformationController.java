@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,13 @@ public class InformationController {
         User user = userRepository.findByEmail(email)                         
                 .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));  // ユーザーが見つからなければ例外を投げる
         return ResponseEntity.ok(informationService.getInfo(user));           // ユーザーの情報を取得して200 OKで返す
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getInfoById(@PathVariable Long id){
+    	User user = userRepository.findById(id)
+    			.orElseThrow(() -> new RuntimeException("user not found"));
+    	return ResponseEntity.ok(user);
     }
 
     @PutMapping

@@ -1,9 +1,12 @@
 package com.example.demo.dto.common;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
+
+import com.example.demo.entity.Department;
 
 import lombok.Data;
 
@@ -24,7 +27,7 @@ public class UserDto {
     
     private LocalDateTime joinedAt;
     
-    private String department;// 所属部署（例：開発部、総務部など）
+    private List<Department> department;// 所属部署（例：開発部、総務部など）
     
     private String hobby;
     
