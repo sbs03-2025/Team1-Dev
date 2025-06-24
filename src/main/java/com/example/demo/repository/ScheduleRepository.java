@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,5 +18,8 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
     // 特定ユーザーが作成した予定一覧
     List<Schedule> findByCreatedUser_Id(Long userId);
+    
+    // titleから検索
+    Optional<Schedule> findByTitle(String title);
 }
 

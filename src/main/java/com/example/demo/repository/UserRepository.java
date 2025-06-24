@@ -11,7 +11,7 @@ import com.example.demo.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByName(String name);
-	Optional<User> findById(Long name);
+	Optional<User> findById(Long id);
     Optional<User> findByEmail(String email);
 
     // 参加者取得に使われる findAllById(List<Long> ids) はJPAに既に存在しているためOK
