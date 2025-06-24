@@ -38,8 +38,8 @@ public class User {
     @ManyToMany(mappedBy = "participants")
     private List<Schedule> schedules;
     
-   @ManyToOne
-    private Role role;
+//    @ManyToOne
+//    private Role role;
     
     private LocalDateTime joinedAt;	// 入社日
     private String department;		// 所属部署（例：開発部、総務部など）
