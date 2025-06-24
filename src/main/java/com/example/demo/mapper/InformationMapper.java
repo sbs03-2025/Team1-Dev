@@ -13,7 +13,7 @@ public class InformationMapper {
         InformationResponseDto dto = new InformationResponseDto();
         dto.setName(user.getName());
         dto.setJoinedAt(user.getJoinedAt());
-        dto.setDepartment(user.getDepartment());
+        dto.setDepartment(user.getMyDepartment());
         dto.setHobby(user.getHobby());
         dto.setBio(user.getBio());
         
@@ -28,7 +28,7 @@ public class InformationMapper {
     public void updateUser(User user, InformationRequestDto dto) {
         user.setName(dto.getName());
         user.setJoinedAt(dto.getJoinedAt());
-        user.setDepartment(dto.getDepartment());
+        user.setMyDepartment(dto.getDepartment());
         user.setHobby(dto.getHobby());
         user.setBio(dto.getBio());
         
