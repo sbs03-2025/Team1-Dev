@@ -1,12 +1,16 @@
 package com.example.demo.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -32,17 +36,20 @@ public class User {
     private String email;
 
     private String passwordHash;
-
-    private String role;  // "USER" or "ADMIN"
-
-    @ManyToMany(mappedBy = "participants")
-    private List<Schedule> schedules;
     
-//    @ManyToOne
-//    private Role role;
+    private String role;
+
+    @ManyToMany(fetch = FetchType.EAGER) // EAGERはセキュリティ用に即時ロードが多い
+    @JoinTable(
+        name = "user_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "department_id")
+    )
+    @Builder.Default
+    private List<Department> roles = new ArrayList<>();
     
     private LocalDateTime joinedAt;	// 入社日
-    private String department;		// 所属部署（例：開発部、総務部など）
+//    private String department;		// 所属部署（例：開発部、総務部など）
     private String hobby;	 		// 趣味
     private String bio; 			// 自己紹介
     
