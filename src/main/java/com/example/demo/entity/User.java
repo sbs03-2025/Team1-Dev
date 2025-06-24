@@ -41,7 +41,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER) // EAGERはセキュリティ用に即時ロードが多い
     @JoinTable(
-        name = "user_roles",
+        name = "user_department",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "department_id")
     )
