@@ -37,7 +37,12 @@ public class UserController {
     
     @GetMapping("/abstract")
     public ResponseEntity<Map<Long,String>> getIdAndName() {
-        return ResponseEntity.ok(userService.getIdAndName());       // すべてのユーザーDTOを取得して200 OKで返す
+        return ResponseEntity.ok(userService.getIdAndName());       // 全てのユーザーのID,nameを取得して200 OKで返す
+    }
+    
+    @GetMapping("/abstract/department")
+    public ResponseEntity<List<Map<String,String>>> getIdAndNameAndDepartment() {
+        return ResponseEntity.ok(userService.getIdAndNameAndDepartment());       // 全てのユーザーのID,name,myDepartmentを取得して200 OKで返す
     }
 
     // ユーザー詳細取得（ID指定）
