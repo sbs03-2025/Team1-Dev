@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 
 import com.example.demo.entity.Department;
+import com.example.demo.entity.Schedule;
 
 import lombok.Data;
 
@@ -32,6 +33,8 @@ public class UserDto {
     private String hobby;
     
     private String bio;
+    
+    private List<Schedule> schedules;
     
     // --- プロフィール拡張項目（将来使用予定） ---
     

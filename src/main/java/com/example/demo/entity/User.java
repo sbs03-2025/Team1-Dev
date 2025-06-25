@@ -53,6 +53,9 @@ public class User {
     private String hobby;	 		// 趣味
     private String bio; 			// 自己紹介
     
+    @ManyToMany(mappedBy = "participants")
+    private List<Schedule> schedules;
+    
  // --- プロフィール拡張項目（将来使用予定） ---
     // private String imageUrl;   	// プロフィール画像のURLまたはパス
     // private String status;   	// 現在のステータス（在席中、外出中など）

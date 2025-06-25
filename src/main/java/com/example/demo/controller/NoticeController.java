@@ -49,6 +49,8 @@ public class NoticeController {
         return ResponseEntity.ok(noticeService.createNotice(dto, user));  // お知らせを作成し、結果を返す（200 OK）
     }
     
+
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteNotices(@PathVariable Long id){       // 指定IDのお知らせを削除
     	if (!noticeRepository.existsById(id)) {                    // 指定されたIDのお知らせが存在しない場合

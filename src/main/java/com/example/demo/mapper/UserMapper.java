@@ -35,7 +35,7 @@ public class UserMapper {
         dto.setDepartment(user.getMyDepartment());
         dto.setHobby(user.getHobby());
         dto.setBio(user.getBio());
-
+        dto.setSchedules(user.getSchedules());
 //        dto.setImageUrl(user.getImageUrl());
 //        dto.setStatus(user.getStatus());
         return dto;
