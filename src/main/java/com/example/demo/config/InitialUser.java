@@ -11,9 +11,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.demo.entity.Department;
+import com.example.demo.entity.Notice;
 import com.example.demo.entity.Schedule;
 import com.example.demo.entity.User;
 import com.example.demo.repository.DepartmentRepository;
+import com.example.demo.repository.NoticeRepository;
 import com.example.demo.repository.ScheduleRepository;
 import com.example.demo.repository.UserRepository;
 
@@ -21,7 +23,12 @@ import com.example.demo.repository.UserRepository;
 public class InitialUser {
 	//DB "users" の初期設定.InitUserとInitAdminUserを作成.
 	@Bean
-	public CommandLineRunner initUser(UserRepository userRepository, DepartmentRepository departmentRepository, ScheduleRepository scheduleRepository, PasswordEncoder encoder) {
+	public CommandLineRunner initUser(
+			UserRepository userRepository, 
+			DepartmentRepository departmentRepository, 
+			ScheduleRepository scheduleRepository, 
+			NoticeRepository noticeRepository, 
+			PasswordEncoder encoder) {
 		return args -> {
 			System.out.println("ユーザー初期設定");
 			
@@ -101,7 +108,7 @@ public class InitialUser {
 				user.setRole("ROLE_USER");
 				user.setMyDepartment(Collections.singletonList(newDepIt));
 				user.setHobby("散歩");
-				user.setBio("Hora!");
+				user.setBio("Hola!");
 				user.setJoinedAt(LocalDateTime.of(2023,4,1,0,0));
 				System.out.println("jiroを登録しました。");
 				return userRepository.save(user);
@@ -140,7 +147,7 @@ public class InitialUser {
 				user.setName("takiguchi");
 				user.setEmail("takiguchi@mail.com");
 				user.setPasswordHash(encoder.encode("takiguchi"));
-				user.setRole("ROLE_USER");
+				user.setRole("ROLE_ADMIN");
 				user.setMyDepartment(Collections.singletonList(newDepIt));
 				user.setHobby("読書");
 				user.setBio("こんにちは");
@@ -163,6 +170,34 @@ public class InitialUser {
 				return userRepository.save(user);
 			});
 			
+			User nguyen = userRepository.findByName("nguyen").orElseGet(() -> {
+				User user = new User();
+				user.setName("nguyen");
+				user.setEmail("nguyen@mail.com");
+				user.setPasswordHash(encoder.encode("nguyen"));
+				user.setRole("ROLE_USER");
+				user.setMyDepartment(Collections.singletonList(newDepIt));
+				user.setHobby("読書");
+				user.setBio("Hello!");
+				user.setJoinedAt(LocalDateTime.of(2025,4,1,0,0));
+				System.out.println("nguyenを登録しました。");
+				return userRepository.save(user);
+			});
+			
+			User wang = userRepository.findByName("wang").orElseGet(() -> {
+				User user = new User();
+				user.setName("wang");
+				user.setEmail("wang@mail.com");
+				user.setPasswordHash(encoder.encode("wang"));
+				user.setRole("ROLE_USER");
+				user.setMyDepartment(Collections.singletonList(newDepIt));
+				user.setHobby("読書");
+				user.setBio("Hello!");
+				user.setJoinedAt(LocalDateTime.of(2025,4,1,0,0));
+				System.out.println("wangを登録しました。");
+				return userRepository.save(user);
+			});
+			
 			// ユーザーのグループ.
 			List<User> userList12 = new ArrayList<>();
 			userList12.add(testUser1);
@@ -180,6 +215,8 @@ public class InitialUser {
 			userListAll.add(furuta);
 			userListAll.add(takiguchi);
 			userListAll.add(arai);
+			userListAll.add(nguyen);
+			userListAll.add(wang);
 			
 			// 予定の初期設定.
 			if(scheduleRepository.findByTitle("test1").isEmpty()) {
@@ -187,7 +224,7 @@ public class InitialUser {
 				schedule.setTitle("test1");
 				schedule.setDescription("description");
 				schedule.setStartDateTime(LocalDateTime.of(2025,4,1,0,0));
-				schedule.setEndDateTime(LocalDateTime.of(2025,4,1,0,0));
+				schedule.setEndDateTime(LocalDateTime.of(2025,4,2,0,0));
 				schedule.setParticipants(userList12);
 				schedule.setCreatedUser(testUser1);
 				
@@ -198,8 +235,8 @@ public class InitialUser {
 				Schedule schedule = new Schedule();
 				schedule.setTitle("test2");
 				schedule.setDescription("description");
-				schedule.setStartDateTime(LocalDateTime.of(2025,5,1,0,0));
-				schedule.setEndDateTime(LocalDateTime.of(2025,5,1,0,0));
+				schedule.setStartDateTime(LocalDateTime.of(2025,5,3,0,0));
+				schedule.setEndDateTime(LocalDateTime.of(2025,5,4,0,0));
 				schedule.setParticipants(userList3);
 				schedule.setCreatedUser(testUser3);
 				
@@ -210,8 +247,8 @@ public class InitialUser {
 				Schedule schedule = new Schedule();
 				schedule.setTitle("test3");
 				schedule.setDescription("description");
-				schedule.setStartDateTime(LocalDateTime.of(2025,5,1,0,0));
-				schedule.setEndDateTime(LocalDateTime.of(2025,5,1,0,0));
+				schedule.setStartDateTime(LocalDateTime.of(2025,5,5,0,0));
+				schedule.setEndDateTime(LocalDateTime.of(2025,5,6,0,0));
 				schedule.setParticipants(userList24);
 				schedule.setCreatedUser(testUser4);
 				
@@ -220,7 +257,7 @@ public class InitialUser {
 			
 			if(scheduleRepository.findByTitle("test4").isEmpty()) {
 				Schedule schedule = new Schedule();
-				schedule.setTitle("AllMember");
+				schedule.setTitle("全員参加の予定");
 				schedule.setDescription("Meeting");
 				schedule.setStartDateTime(LocalDateTime.of(2025,6,1,0,0));
 				schedule.setEndDateTime(LocalDateTime.of(2025,7,1,0,0));
@@ -228,6 +265,57 @@ public class InitialUser {
 				schedule.setCreatedUser(ishihara);
 				
 				scheduleRepository.save(schedule);
+			}
+			
+			//Noticeの初期設定.
+			if(noticeRepository.findByTitle("notice1").isEmpty()) {
+				Notice notice = new Notice();
+				notice.setTitle("notice1");
+				notice.setBody("This is Body");
+				notice.setCreatedAt(LocalDateTime.of(2023,3,31,0,0));
+				notice.setCreatedUser(testUser1);
+				
+				noticeRepository.save(notice);
+			}
+			
+			if(noticeRepository.findByTitle("飲み会のお知らせ").isEmpty()) {
+				Notice notice = new Notice();
+				notice.setTitle("飲み会のお知らせ");
+				notice.setBody("6月30日（月）に懇親会を開催します。");
+				notice.setCreatedAt(LocalDateTime.of(2025,6,25,14,23));
+				notice.setCreatedUser(ishihara);
+				
+				noticeRepository.save(notice);
+			}
+			
+			if(noticeRepository.findByTitle("これがお知らせ").isEmpty()) {
+				Notice notice = new Notice();
+				notice.setTitle("これがお知らせ");
+				notice.setBody("これこそが真のお知らせ！");
+				notice.setCreatedAt(LocalDateTime.of(2025,6,24,0,0));
+				notice.setCreatedUser(furuta);
+				
+				noticeRepository.save(notice);
+			}
+			
+			if(noticeRepository.findByTitle("これもお知らせ").isEmpty()) {
+				Notice notice = new Notice();
+				notice.setTitle("これもお知らせ");
+				notice.setBody("これもお知らせの中のお知らせ");
+				notice.setCreatedAt(LocalDateTime.of(2025,6,24,0,0));
+				notice.setCreatedUser(takiguchi);
+				
+				noticeRepository.save(notice);
+			}
+			
+			if(noticeRepository.findByTitle("これはお知らせ？").isEmpty()) {
+				Notice notice = new Notice();
+				notice.setTitle("これはお知らせ？");
+				notice.setBody("これはお知らせなのだろうか？");
+				notice.setCreatedAt(LocalDateTime.of(2025,6,24,0,0));
+				notice.setCreatedUser(arai);
+				
+				noticeRepository.save(notice);
 			}
 		};
 	}
