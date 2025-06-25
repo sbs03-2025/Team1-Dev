@@ -27,8 +27,8 @@ public class InformationMapper {
 
     public void updateUser(User user, InformationRequestDto dto) {
         user.setName(dto.getName());
-        user.setJoinedAt(dto.getJoinedAt());
-        user.setMyDepartment(dto.getDepartment());
+//        user.setJoinedAt(dto.getJoinedAt());
+        user.setMyDepartment(dto.getMyDepartment());
         user.setHobby(dto.getHobby());
         user.setBio(dto.getBio());
         

@@ -52,6 +52,12 @@ public class InformationController {
 
         return ResponseEntity.ok(informationService.updateInfo(user, dto));  // ユーザー情報を更新し、結果を返す
     }
+    
+    @PutMapping("/test/{id}")
+    public ResponseEntity<?> updateTest(@PathVariable Long id, @RequestBody InformationRequestDto dto){
+    	User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
+    	return ResponseEntity.ok(informationService.updateInfo(user,dto));
+    }
 
     
 }

@@ -1,6 +1,5 @@
 package com.example.demo.dto.request;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.demo.entity.Department;
@@ -10,8 +9,8 @@ import lombok.Getter;
 @Getter
 public class InformationRequestDto {
 	private String name;
-	private LocalDateTime joinedAt;
-	private List<Department> department;
+//	private LocalDateTime joinedAt; //入社年月日は更新（変更）することが無いので削除.
+	private List<Department> myDepartment;
 	private String hobby;
 	private String bio;
 	
