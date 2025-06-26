@@ -41,20 +41,7 @@ public class UserService {
 		return responseData;
 	}
 
-	// id,name,myDepartmentだけを取得
-	//	public Map<String, String> getIdAndNameAndDepartment() {
-	//		Map<String, String> responseData = new HashMap<>();
-	//		List<User> users = userRepository.findAll();
-	//
-	//		for (User user : users) {
-	//			responseData.put("id", Long.toString(user.getId()));
-	//			responseData.put("name", user.getName());
-	//			responseData.put("myDepartment", user.getMyDepartment().get(0).getName());
-	//		}
-	//
-	//		return responseData;
-	//	}
-
+	// id,name, departmentを取得
 	public List<Map<String, String>> getIdAndNameAndDepartment() {
 		List<Map<String, String>> responseList = new ArrayList<>();
 		List<User> users = userRepository.findAll();
@@ -70,6 +57,31 @@ public class UserService {
 			} else {
 				userData.put("myDepartment", "なし");
 			}
+
+			responseList.add(userData);
+		}
+
+		return responseList;
+	}
+
+	// id,name,myDepartment,deleteFlagを取得
+	public List<Map<String, String>> getIdAndNameAndDepartmentAndDeleteFlag() {
+		List<Map<String, String>> responseList = new ArrayList<>();
+		List<User> users = userRepository.findAll();
+
+		for (User user : users) {
+			Map<String, String> userData = new HashMap<>();
+			userData.put("id", Long.toString(user.getId()));
+			userData.put("name", user.getName());
+
+			// 複数部門がある場合、1つ目だけ取得（例外回避も一応入れておく）
+			if (user.getMyDepartment() != null && !user.getMyDepartment().isEmpty()) {
+				userData.put("myDepartment", user.getMyDepartment().get(0).getName());
+			} else {
+				userData.put("myDepartment", "なし");
+			}
+			
+			userData.put("deleteFlag", String.valueOf(user.isDeleteFlag()));
 
 			responseList.add(userData);
 		}
