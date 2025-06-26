@@ -45,6 +45,13 @@ public class NoticeController {
     	
     }
     
+    @GetMapping("/createdUser/{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id){
+    	return userRepository.findNameById(id)
+    			.map(ResponseEntity::ok)
+    			.orElse(ResponseEntity.notFound().build());
+    }
+    
     @PostMapping
     public ResponseEntity<NoticeResponseDto> create(
             @RequestBody NoticeRequestDto dto,               // お知らせ作成リクエストDTO

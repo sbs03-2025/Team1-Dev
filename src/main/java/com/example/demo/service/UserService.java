@@ -42,41 +42,40 @@ public class UserService {
 	}
 
 	// id,name,myDepartmentだけを取得
-//	public Map<String, String> getIdAndNameAndDepartment() {
-//		Map<String, String> responseData = new HashMap<>();
-//		List<User> users = userRepository.findAll();
-//
-//		for (User user : users) {
-//			responseData.put("id", Long.toString(user.getId()));
-//			responseData.put("name", user.getName());
-//			responseData.put("myDepartment", user.getMyDepartment().get(0).getName());
-//		}
-//
-//		return responseData;
-//	}
-	
+	//	public Map<String, String> getIdAndNameAndDepartment() {
+	//		Map<String, String> responseData = new HashMap<>();
+	//		List<User> users = userRepository.findAll();
+	//
+	//		for (User user : users) {
+	//			responseData.put("id", Long.toString(user.getId()));
+	//			responseData.put("name", user.getName());
+	//			responseData.put("myDepartment", user.getMyDepartment().get(0).getName());
+	//		}
+	//
+	//		return responseData;
+	//	}
+
 	public List<Map<String, String>> getIdAndNameAndDepartment() {
-	    List<Map<String, String>> responseList = new ArrayList<>();
-	    List<User> users = userRepository.findAll();
+		List<Map<String, String>> responseList = new ArrayList<>();
+		List<User> users = userRepository.findAll();
 
-	    for (User user : users) {
-	        Map<String, String> userData = new HashMap<>();
-	        userData.put("id", Long.toString(user.getId()));
-	        userData.put("name", user.getName());
-	        
-	        // 複数部門がある場合、1つ目だけ取得（例外回避も一応入れておく）
-	        if (user.getMyDepartment() != null && !user.getMyDepartment().isEmpty()) {
-	            userData.put("myDepartment", user.getMyDepartment().get(0).getName());
-	        } else {
-	            userData.put("myDepartment", "なし");
-	        }
+		for (User user : users) {
+			Map<String, String> userData = new HashMap<>();
+			userData.put("id", Long.toString(user.getId()));
+			userData.put("name", user.getName());
 
-	        responseList.add(userData);
-	    }
+			// 複数部門がある場合、1つ目だけ取得（例外回避も一応入れておく）
+			if (user.getMyDepartment() != null && !user.getMyDepartment().isEmpty()) {
+				userData.put("myDepartment", user.getMyDepartment().get(0).getName());
+			} else {
+				userData.put("myDepartment", "なし");
+			}
 
-	    return responseList;
+			responseList.add(userData);
+		}
+
+		return responseList;
 	}
-
 
 	// idからユーザー検索
 	public Optional<UserDto> getUserById(Long id) {
@@ -95,6 +94,12 @@ public class UserService {
 	// Emailからユーザー検索
 	public Optional<UserDto> getUserByEmail(String email) {
 		return userRepository.findByEmail(email)
+				.map(userMapper::toDto);
+	}
+
+	// idからName検索
+	public Optional<UserDto> findNameById(Long id) {
+		return userRepository.findNameById(id)
 				.map(userMapper::toDto);
 	}
 

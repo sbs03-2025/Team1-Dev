@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByName(String name);
 	Optional<User> findById(Long id);
     Optional<User> findByEmail(String email);
-
+    Optional<User> findNameById(Long id);
     // 参加者取得に使われる findAllById(List<Long> ids) はJPAに既に存在しているためOK
 }
 
