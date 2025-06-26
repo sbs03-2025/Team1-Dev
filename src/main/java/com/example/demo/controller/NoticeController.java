@@ -37,6 +37,14 @@ public class NoticeController {
         return ResponseEntity.ok(noticeService.getAllNotices());  // 全お知らせを取得して返す（200 OK）
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getNoticeById(@PathVariable Long id){
+    	return noticeService.getNoticeById(id)
+    			.map(ResponseEntity::ok)
+    			.orElse(ResponseEntity.notFound().build());
+    	
+    }
+    
     @PostMapping
     public ResponseEntity<NoticeResponseDto> create(
             @RequestBody NoticeRequestDto dto,               // お知らせ作成リクエストDTO
@@ -59,5 +67,6 @@ public class NoticeController {
     	noticeRepository.deleteById(id);                           // 存在する場合は削除を実行
     	return ResponseEntity.ok("削除しました。");                 // 削除完了メッセージとともに200 OK を返す
     }
+    
 }
 

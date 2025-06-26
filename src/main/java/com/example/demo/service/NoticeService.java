@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -32,4 +33,11 @@ public class NoticeService {
 		Notice notice = noticeMapper.toEntity(dto, createdUser);      // リクエストDTOと作成者情報からNoticeエンティティを生成
 		return noticeMapper.toDto(noticeRepository.save(notice));     // エンティティを保存し、保存結果をDTOに変換して返す
 	}
+	
+	//特定の一件取得
+		public Optional<NoticeResponseDto> getNoticeById(Long id) {
+			return noticeRepository.findById(id)
+					.map(noticeMapper::toDto);
+					
+		}
 }
