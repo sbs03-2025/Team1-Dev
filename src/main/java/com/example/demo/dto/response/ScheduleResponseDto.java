@@ -1,6 +1,7 @@
 package com.example.demo.dto.response;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -21,4 +22,6 @@ public class ScheduleResponseDto {
 	
 	private String body;
 	private int createdUserId; // 作成者id
+	
+	private List<Integer> participants;
 }

@@ -6,17 +6,22 @@ import java.util.Optional;
 
 import jakarta.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.common.UserDto;
+import com.example.demo.dto.request.InformationRequestDto;
+import com.example.demo.entity.User;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +31,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173")                    // フロントエンド（localhost:5173）からのリクエストを許可
 public class UserController {
+	
+	@Autowired
+	private final UserRepository userRepository;
 
     private final UserService userService;                         // ユーザー関連のビジネスロジックを処理するサービス
 
@@ -83,4 +91,18 @@ public class UserController {
                                  .body("ユーザーが見つかりません");
         }
     }
+    
+    //ユーザーの新規登録
+    @PostMapping("/save")
+    public ResponseEntity<?> saveData(@RequestBody InformationRequestDto dto){
+    	User user = new User();
+    	user.setName(dto.getName());
+    	user.setJoinedAt(dto.getJoinedAt());
+    	user.setHobby(dto.getHobby());
+    	user.setBio(dto.getBio());
+    	user.setMyDepartment(dto.getMyDepartment());
+    	return ResponseEntity.ok(userRepository.save(user));
+    }
+    
+    
 }

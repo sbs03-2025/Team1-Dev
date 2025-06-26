@@ -31,6 +31,19 @@ public class ScheduleMapper {
         schedule.setParticipants(participants);
     }
 
+//    public ScheduleResponseDto toDto(Schedule schedule) {
+//        return ScheduleResponseDto.builder()
+//                .id(schedule.getId())
+//                .title(schedule.getTitle())
+//                .startDateTime(schedule.getStartDateTime())
+//                .endDateTime(schedule.getEndDateTime())
+//                .body(schedule.getDescription())
+//                .createdUserId(schedule.getCreatedUser() != null
+//                        ? schedule.getCreatedUser().getId().intValue()
+//                        : -1)
+//                .build();
+//    }
+    
     public ScheduleResponseDto toDto(Schedule schedule) {
         return ScheduleResponseDto.builder()
                 .id(schedule.getId())
@@ -41,6 +54,14 @@ public class ScheduleMapper {
                 .createdUserId(schedule.getCreatedUser() != null
                         ? schedule.getCreatedUser().getId().intValue()
                         : -1)
+                .participants(
+                    schedule.getParticipants() != null
+                            ? schedule.getParticipants().stream()
+                                .map(User::getId)
+                                .map(Long::intValue)
+                                .toList()
+                            : List.of()
+                )
                 .build();
     }
 }
