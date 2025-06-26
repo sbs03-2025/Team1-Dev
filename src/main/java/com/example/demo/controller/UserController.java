@@ -9,7 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -104,5 +106,16 @@ public class UserController {
     	return ResponseEntity.ok(userRepository.save(user));
     }
     
+    // ユーザー削除.
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteData(@PathVariable Long id){
+    	User user = userRepository.findById(id)
+    			.orElseThrow(() -> new UsernameNotFoundException("該当するユーザーがいません"));
+    	
+    	user.setDeleteFlag(false);
+    	userRepository.save(user);
+    	
+    	return ResponseEntity.ok("ユーザーを削除しました。");
+    }
     
 }
