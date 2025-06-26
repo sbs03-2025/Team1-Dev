@@ -23,10 +23,32 @@ public class UserService {
 	private final UserMapper userMapper;
 
 	// 全件取得
-	public List<UserDto> getAllUsers() {
-		return userRepository.findAll().stream()
-				.map(userMapper::toDto)
-				.toList();
+	public List<Map<String, String>> getAllUsers() {
+		List<Map<String, String>> responseList = new ArrayList<>();
+		List<User> users = userRepository.findAll();
+		
+		for (User user: users) {
+			Map<String, String> userData = new HashMap<>();
+			userData.put("id", Long.toString(user.getId()));
+			userData.put("email", user.getEmail());
+			userData.put("role", user.getRole());
+			if (user.getMyDepartment() != null && !user.getMyDepartment().isEmpty()) {
+				userData.put("myDepartment", user.getMyDepartment().get(0).getName());
+			} else {
+				userData.put("myDepartment", "なし");
+			}
+			if(user.getSchedules() != null && !user.getSchedules().isEmpty()) {
+				for(int i = 0; i < user.getSchedules().size(); i++) {
+					userData.put("Schedule" + "[" + i + "]", user.getSchedules().get(i).getTitle());
+				}
+			}
+			else {
+				userData.put("Schedule", "なし");
+			}
+			userData.put("deleteFlag", String.valueOf(user.isDeleteFlag()));
+			responseList.add(userData);
+		}
+		return responseList;
 	}
 
 	// idとnameだけを取得
