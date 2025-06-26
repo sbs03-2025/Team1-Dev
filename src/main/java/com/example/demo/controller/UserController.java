@@ -41,7 +41,7 @@ public class UserController {
 
     // 全ユーザー取得（管理者用）
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAllUsers() {
+    public ResponseEntity<List<Map<String, String>>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());       // すべてのユーザーDTOを取得して200 OKで返す
     }
     
