@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,7 +68,7 @@ public class InitialUser {
 				user.setMyDepartment(Collections.singletonList(newDepHumanResrc));
 				user.setHobby("読書");
 				user.setBio("よろしく");
-				user.setJoinedAt(LocalDateTime.now());
+				user.setJoinedAt(LocalDate.now());
 				System.out.println("InitUserを登録しました。");
 				return userRepository.save(user);
 			});
@@ -81,7 +82,7 @@ public class InitialUser {
 				user.setMyDepartment(Collections.singletonList(newDepAccount));
 				user.setHobby("食べ歩き");
 				user.setBio("Hello World!");
-				user.setJoinedAt(LocalDateTime.of(2023,4,1,0,0));
+				user.setJoinedAt(LocalDate.of(2023,4,1));
 				System.out.println("InitAdminUserを登録しました。");
 				return userRepository.save(user);
 			});
@@ -95,7 +96,7 @@ public class InitialUser {
 				user.setMyDepartment(Collections.singletonList(newDepSales));
 				user.setHobby("ゲーム");
 				user.setBio("こんにちは");
-				user.setJoinedAt(LocalDateTime.of(2023,4,1,0,0));
+				user.setJoinedAt(LocalDate.of(2023,4,1));
 				System.out.println("taroを登録しました。");
 				return userRepository.save(user);
 			});
@@ -109,7 +110,7 @@ public class InitialUser {
 				user.setMyDepartment(Collections.singletonList(newDepIt));
 				user.setHobby("散歩");
 				user.setBio("Hola!");
-				user.setJoinedAt(LocalDateTime.of(2023,4,1,0,0));
+				user.setJoinedAt(LocalDate.of(2023,4,1));
 				System.out.println("jiroを登録しました。");
 				return userRepository.save(user);
 			});
@@ -123,7 +124,7 @@ public class InitialUser {
 				user.setMyDepartment(Collections.singletonList(newDepIt));
 				user.setHobby("散歩");
 				user.setBio("你好");
-				user.setJoinedAt(LocalDateTime.of(2025,4,1,0,0));
+				user.setJoinedAt(LocalDate.of(2025,4,1));
 				System.out.println("ishiharaを登録しました。");
 				return userRepository.save(user);
 			});
@@ -137,7 +138,7 @@ public class InitialUser {
 				user.setMyDepartment(Collections.singletonList(newDepIt));
 				user.setHobby("食べ歩き");
 				user.setBio("Hello!");
-				user.setJoinedAt(LocalDateTime.of(2025,4,1,0,0));
+				user.setJoinedAt(LocalDate.of(2025,4,1));
 				System.out.println("furutaを登録しました。");
 				return userRepository.save(user);
 			});
@@ -151,7 +152,7 @@ public class InitialUser {
 				user.setMyDepartment(Collections.singletonList(newDepIt));
 				user.setHobby("読書");
 				user.setBio("こんにちは");
-				user.setJoinedAt(LocalDateTime.of(2025,4,1,0,0));
+				user.setJoinedAt(LocalDate.of(2025,4,1));
 				System.out.println("takiguchiを登録しました。");
 				return userRepository.save(user);
 			});
@@ -165,7 +166,7 @@ public class InitialUser {
 				user.setMyDepartment(Collections.singletonList(newDepIt));
 				user.setHobby("散歩");
 				user.setBio("こんにちは");
-				user.setJoinedAt(LocalDateTime.of(2025,4,1,0,0));
+				user.setJoinedAt(LocalDate.of(2025,4,1));
 				System.out.println("araiを登録しました。");
 				return userRepository.save(user);
 			});
@@ -179,7 +180,7 @@ public class InitialUser {
 				user.setMyDepartment(Collections.singletonList(newDepIt));
 				user.setHobby("読書");
 				user.setBio("Hello!");
-				user.setJoinedAt(LocalDateTime.of(2025,4,1,0,0));
+				user.setJoinedAt(LocalDate.of(2025,4,1));
 				System.out.println("nguyenを登録しました。");
 				return userRepository.save(user);
 			});
@@ -193,7 +194,7 @@ public class InitialUser {
 				user.setMyDepartment(Collections.singletonList(newDepIt));
 				user.setHobby("読書");
 				user.setBio("Hello!");
-				user.setJoinedAt(LocalDateTime.of(2025,4,1,0,0));
+				user.setJoinedAt(LocalDate.of(2025,4,1));
 				System.out.println("wangを登録しました。");
 				return userRepository.save(user);
 			});

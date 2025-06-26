@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class User {
     @Builder.Default
     private List<Department> myDepartment = new ArrayList<>();
     
-    private LocalDateTime joinedAt;	// 入社日
+    private LocalDate joinedAt;	// 入社日
 //    private String department;		// 所属部署（例：開発部、総務部など）
     private String hobby;	 		// 趣味
     private String bio; 			// 自己紹介

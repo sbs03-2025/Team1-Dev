@@ -1,6 +1,6 @@
 package com.example.demo.dto.common;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -26,7 +26,7 @@ public class UserDto {
 
     private String role;
     
-    private LocalDateTime joinedAt;
+    private LocalDate joinedAt;
     
     private List<Department> department;// 所属部署（例：開発部、総務部など）
     
