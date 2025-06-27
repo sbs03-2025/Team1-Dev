@@ -58,6 +58,20 @@ public class InitialUser {
 				return departmentRepository.save(dep);
 			});
 			
+			Department newDepZ = departmentRepository.findByName("財務部").orElseGet(() -> {
+				Department dep = new Department();
+				dep.setName("財務部");
+				return departmentRepository.save(dep);
+			});
+			
+
+			Department newDepS = departmentRepository.findByName("生産部").orElseGet(() -> {
+				Department dep = new Department();
+				dep.setName("生産部");
+				return departmentRepository.save(dep);
+			});
+			
+			
 			// ユーザーの初期設定.
 			User testUser1 = userRepository.findByName("InitUser").orElseGet(() -> {
 				User user = new User();
