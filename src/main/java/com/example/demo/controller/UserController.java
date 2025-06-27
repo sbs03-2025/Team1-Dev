@@ -39,6 +39,9 @@ public class UserController {
 
     private final UserService userService;                         // ユーザー関連のビジネスロジックを処理するサービス
 
+    @Autowired
+    private final PasswordEncoder encoder;
+    
     // 全ユーザー取得（管理者用）
     @GetMapping
     public ResponseEntity<List<Map<String, String>>> getAllUsers() {
@@ -104,11 +107,12 @@ public class UserController {
     
     //ユーザーの新規登録
     @PostMapping("/save")
-    public ResponseEntity<?> saveData(@RequestBody UserDto dto,PasswordEncoder encoder){
+    public ResponseEntity<?> saveData(@RequestBody UserDto dto){
     	User user = new User();
     	user.setName(dto.getName());
     	user.setEmail(dto.getEmail());
     	user.setPasswordHash(encoder.encode(dto.getPassword()));
+//    	user.setPasswordHash(encoder.encode(dto.getPassword()));
     	user.setRole("ROLE_USER");
     	user.setMyDepartment(dto.getMyDepartment());
     	user.setJoinedAt(dto.getJoinedAt());
