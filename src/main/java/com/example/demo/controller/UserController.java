@@ -92,7 +92,7 @@ public class UserController {
 
         String email = authentication.getName();                  // ログインユーザーのメールアドレスを取得
 
-        Optional<UserDto> userOpt = userService.getUserByEmail(email);  // メールアドレスからユーザー情報を取得
+        Optional<UserDto> userOpt = userService.getUserByName(email);  // メールアドレスからユーザー情報を取得
 
         if (userOpt.isPresent()) {
             return ResponseEntity.ok(userOpt.get());              // ユーザーが存在すれば200 OKで返す
