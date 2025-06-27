@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.common.UserDto;
-import com.example.demo.dto.request.InformationRequestDto;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
@@ -104,13 +104,17 @@ public class UserController {
     
     //ユーザーの新規登録
     @PostMapping("/save")
-    public ResponseEntity<?> saveData(@RequestBody InformationRequestDto dto){
+    public ResponseEntity<?> saveData(@RequestBody UserDto dto,PasswordEncoder encoder){
     	User user = new User();
     	user.setName(dto.getName());
+    	user.setEmail(dto.getEmail());
+    	user.setPasswordHash(encoder.encode(dto.getPassword()));
+    	user.setRole("ROLE_USER");
+    	user.setMyDepartment(dto.getMyDepartment());
     	user.setJoinedAt(dto.getJoinedAt());
     	user.setHobby(dto.getHobby());
     	user.setBio(dto.getBio());
-    	user.setMyDepartment(dto.getMyDepartment());
+    	user.setDeleteFlag(false);
     	return ResponseEntity.ok(userRepository.save(user));
     }
     
@@ -120,7 +124,7 @@ public class UserController {
     	User user = userRepository.findById(id)
     			.orElseThrow(() -> new UsernameNotFoundException("該当するユーザーがいません"));
     	
-    	user.setDeleteFlag(false);
+    	user.setDeleteFlag(true);
     	userRepository.save(user);
     	
     	return ResponseEntity.ok("ユーザーを削除しました。");

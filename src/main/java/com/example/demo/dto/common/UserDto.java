@@ -28,7 +28,7 @@ public class UserDto {
     
     private LocalDate joinedAt;
     
-    private List<Department> department;// 所属部署（例：開発部、総務部など）
+    private List<Department> myDepartment;// 所属部署（例：開発部、総務部など）
     
     private String hobby;
     

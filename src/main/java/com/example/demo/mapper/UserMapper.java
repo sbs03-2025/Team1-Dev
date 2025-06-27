@@ -15,7 +15,7 @@ public class UserMapper {
                 .passwordHash(dto.getPassword())
                 .role(dto.getRole())
                 .joinedAt(dto.getJoinedAt())
-                .myDepartment(dto.getDepartment())
+                .myDepartment(dto.getMyDepartment())
                 .hobby(dto.getHobby())
                 .bio(dto.getBio())
                 
@@ -32,7 +32,7 @@ public class UserMapper {
         dto.setPassword(null); // パスワードは返さないように制御
         dto.setRole(user.getRole());
         dto.setJoinedAt(user.getJoinedAt());
-        dto.setDepartment(user.getMyDepartment());
+        dto.setMyDepartment(user.getMyDepartment());
         dto.setHobby(user.getHobby());
         dto.setBio(user.getBio());
         dto.setSchedules(user.getSchedules());
@@ -44,7 +44,7 @@ public class UserMapper {
     public void updateEntity(User user, UserDto dto) {
         user.setName(dto.getName());
         user.setJoinedAt(dto.getJoinedAt());
-        user.setMyDepartment(dto.getDepartment());
+        user.setMyDepartment(dto.getMyDepartment());
         user.setHobby(dto.getHobby());
         user.setBio(user.getBio());
         
