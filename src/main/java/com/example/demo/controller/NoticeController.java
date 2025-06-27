@@ -57,8 +57,8 @@ public class NoticeController {
             @RequestBody NoticeRequestDto dto,               // お知らせ作成リクエストDTO
             Authentication authentication) {
 
-        String email = authentication.getName();             // 認証されたユーザーのメールアドレスを取得
-        User user = userRepository.findByEmail(email)
+        String name = authentication.getName();             // 認証されたユーザーのメールアドレスを取得
+        User user = userRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));  // ユーザーが存在しなければ例外
 
         return ResponseEntity.ok(noticeService.createNotice(dto, user));  // お知らせを作成し、結果を返す（200 OK）

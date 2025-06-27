@@ -8,7 +8,7 @@ import lombok.Data;
 public class NoticeRequestDto {
 	private String title;
 	private String body;
-	private LocalDateTime createdAt;
+	private LocalDateTime createdAt = LocalDateTime.now();
 	private Long createdUserId;
 }
 
