@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,6 +65,19 @@ public class NoticeController {
         return ResponseEntity.ok(noticeService.createNotice(dto, user));  // お知らせを作成し、結果を返す（200 OK）
     }
     
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<NoticeResponseDto> updateNotice(
+            @PathVariable Long id,
+            @RequestBody NoticeRequestDto dto) {
+
+        if (!noticeRepository.existsById(id)) {
+            return ResponseEntity.notFound().build(); // 404
+        }
+
+        NoticeResponseDto updated = noticeService.updateNotice(id, dto);
+        return ResponseEntity.ok(updated);
+    }
 
     
     @DeleteMapping("/{id}")
