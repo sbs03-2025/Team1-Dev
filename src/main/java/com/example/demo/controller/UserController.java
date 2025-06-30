@@ -93,9 +93,9 @@ public class UserController {
                                  .body("未ログインです");
         }
 
-        String email = authentication.getName();                  // ログインユーザーのメールアドレスを取得
+        String name = authentication.getName();                  // ログインユーザーのnameを取得
 
-        Optional<UserDto> userOpt = userService.getUserByName(email);  // メールアドレスからユーザー情報を取得
+        Optional<UserDto> userOpt = userService.getUserByName(name);  // 上で取得したnameからユーザー情報を取得
 
         if (userOpt.isPresent()) {
             return ResponseEntity.ok(userOpt.get());              // ユーザーが存在すれば200 OKで返す
@@ -132,6 +132,76 @@ public class UserController {
     	userRepository.save(user);
     	
     	return ResponseEntity.ok("ユーザーを削除しました。");
+    }
+    
+    //パスワード更新時のチェック.
+    //現在のパスワードと新しく更新しようとしているパスワードの比較.
+    @PostMapping("/check/me")
+    public ResponseEntity<?> validPassword(@RequestBody UserDto dto,Authentication authentication){
+    	if(authentication == null || !authentication.isAuthenticated()) {
+    		return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND)
+    				.body("ログインしていません");
+    	}
+    	
+    	String name = authentication.getName();
+    	
+    	User user = userRepository.findByName(name).orElseThrow(()->new UsernameNotFoundException("ユーザーが見つかりません"));
+    	
+    	String currentPasswordHash = user.getPasswordHash();
+    	String newPassword = dto.getPassword();
+    	
+    	if(encoder.matches(newPassword, currentPasswordHash)) {
+    		return ResponseEntity.status(HttpServletResponse.SC_CONFLICT)
+    				.body("現在のパスワード一致しています");
+    	}else {
+    		return ResponseEntity.ok("パスワード登録可能");
+    	}
+    }
+    
+    //社員登録時の確認.
+    //現在登録されている社員の名前とパスワードの組み合わせと同一のものが登録されないようにする.
+    @PostMapping("/check")
+    public ResponseEntity<?> check(@RequestBody UserDto dto,Authentication authentication){
+    	//ログインしている（登録の処理をしている）ユーザーのroleを確認
+    	String role = userRepository.findRoleByName(authentication.getName())
+    			.orElseThrow(() -> new UsernameNotFoundException("該当のユーザーが見つかりません"));
+    	if(role == "ROLE_USER") {
+    		return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED)
+    				.body("権限がありません");
+    	}
+    	
+    	String newName = dto.getName();
+    	String newPassword = dto.getPassword();
+    	
+    	//登録済みのuserの中に同じ名前が存在するかを確認.
+    	Optional<User> checkUser = userRepository.findByName(newName);
+    	
+    	if(checkUser.isPresent()) {
+    		//ここに処理が来ていたら、同じ名前のuserが存在している.
+    		User existingUser = checkUser.get();//Optionalをアンラップ.
+    		
+    		//パスワードが一致していないかどうかを確認
+    		if(encoder.matches(newPassword, existingUser.getPasswordHash())) {
+    			return ResponseEntity.status(HttpServletResponse.SC_CONFLICT)
+    					.body("名前とパスワードが同じユーザーが存在しています");
+    		}
+    	}
+    	//同じnameのuserがいない or nameは一緒だけどパスワードが違う場合には以下を返す.
+    	return ResponseEntity.ok("ユーザー登録が可能");
+    	
+    }
+    
+    @GetMapping("/myrole")
+    public ResponseEntity<?> getRole(Authentication authentication){
+    	String name = authentication.getName();
+    	if(name == null) {
+    		return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED)
+    				.body("未ログインです");
+    	}
+    	User user = userRepository.findByName(name).orElseThrow(() -> new RuntimeException());
+    	String role = user.getRole();
+    	
+    	return ResponseEntity.ok(role);
     }
     
 }

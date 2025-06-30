@@ -127,7 +127,7 @@ public class UserService {
 
 	// Emailからユーザー検索
 	public Optional<UserDto> getUserByName(String name) {
-		return userRepository.findByEmail(name)
+		return userRepository.findByName(name)
 				.map(userMapper::toDto);
 	}
 

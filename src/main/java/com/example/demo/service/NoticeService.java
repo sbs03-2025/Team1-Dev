@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.dto.request.NoticeRequestDto;
 import com.example.demo.dto.response.NoticeResponseDto;
@@ -40,4 +41,19 @@ public class NoticeService {
 					.map(noticeMapper::toDto);
 					
 		}
+		
+		public NoticeResponseDto updateNotice(@PathVariable Long id, NoticeRequestDto dto) {
+			Notice notice = noticeRepository.findById(id)
+					.orElseThrow(() -> new RuntimeException("Notice not found with id: " + id));
+
+			// DTOの内容でエンティティの値を更新
+			notice.setTitle(dto.getTitle());
+			notice.setBody(dto.getBody());
+
+			Notice updatedNotice = noticeRepository.save(notice);
+
+			return noticeMapper.toDto(updatedNotice);
+		}
+		
+		
 }

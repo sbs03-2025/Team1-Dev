@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,7 +65,18 @@ public class NoticeController {
         return ResponseEntity.ok(noticeService.createNotice(dto, user));  // お知らせを作成し、結果を返す（200 OK）
     }
     
+    @PutMapping("/{id}")
+    public ResponseEntity<NoticeResponseDto> updateNotice(
+            @PathVariable Long id,
+            @RequestBody NoticeRequestDto dto) {
 
+        if (!noticeRepository.existsById(id)) {
+            return ResponseEntity.notFound().build(); // 404
+        }
+
+        NoticeResponseDto updated = noticeService.updateNotice(id, dto);
+        return ResponseEntity.ok(updated);
+    }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteNotices(@PathVariable Long id){       // 指定IDのお知らせを削除
@@ -74,6 +86,18 @@ public class NoticeController {
     	noticeRepository.deleteById(id);                           // 存在する場合は削除を実行
     	return ResponseEntity.ok("削除しました。");                 // 削除完了メッセージとともに200 OK を返す
     }
+    
+//    @PutMapping("/{id}")
+//    public ResponseEntity<?> editNotice(@PathVariable Long id, @RequestBody NoticeRequestDto dto){
+//    	
+//    	Notice newNotice = noticeRepository.findById(id)
+//    			.orElseThrow(() -> new RuntimeException("指定のお知らせが見つかりません。"));
+//    	
+//    	newNotice.setTitle(dto.getTitle());
+//    	newNotice.setBody(dto.getBody());
+//    	
+//    	return ResponseEntity.ok(noticeRepository.save(newNotice));
+//    }
     
 }
 
