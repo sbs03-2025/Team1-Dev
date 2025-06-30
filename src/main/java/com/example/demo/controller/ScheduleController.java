@@ -55,8 +55,8 @@ public class ScheduleController {
             @RequestBody ScheduleRequestDto dto,
             Authentication authentication) {
 
-        String email = authentication.getName();
-        User createdUser = userRepository.findByEmail(email)
+        String name = authentication.getName();
+        User createdUser = userRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));
 
         return ResponseEntity.ok(scheduleService.createSchedule(dto, createdUser));
